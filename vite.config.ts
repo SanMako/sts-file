@@ -18,7 +18,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
     },
     server: {
       // host: true, // 指定服务器应该监听哪个 IP 地址。 如果将此设置为 0.0.0.0 或者 true 将监听所有地址，包括局域网和公网地址。
-      port: 7777,
+      port: 36110,
       strictPort: true, // 设为 true 时若端口已被占用则会直接退出，而不是尝试下一个可用端口。
       // 设置 server.hmr.overlay 为 false 可以禁用服务器错误遮罩层
       hmr: {
@@ -36,6 +36,14 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         exposes: {
           "./File": "./src/views/File.vue",
         },
+        remotes: {
+          "sts-parent": {
+            external: "http://localhost:8899/assets/StsParent.js",
+            format: "esm",
+            from: "vite",
+          },
+        },
+        shared: ["vue", "vue-router"],
       }),
       copy({
         targets: [
